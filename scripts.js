@@ -35,6 +35,7 @@ class CarCharacteristic {
         this.tank = tank;
         this.fuelConsumption = fuelConsumption;
         this.fuel = 0;
+        this.engine = false;
     }
 
     isEngineStarted () {
@@ -75,19 +76,19 @@ class CarCharacteristic {
     }
 
     go() {
-        if (this.isEngineStarted() === true) {
-            alert('Двигатель запущен');
+        if (this.engine === false) {
+            this.engine = this.isEngineStarted ();
         }
-        alert('Бак заправлен на ' + this.getFuel() + 'л.');
         alert(this.timer ());
-        alert('Двигатель: ' + this.isEngineStarted());
+        alert(this.engine);
     }
 
     stop() {
-        if (this.isEngineStopped() === false) {
-            alert('Двигатель: ' + this.isEngineStopped());
+        if (this.engine === true) {
+            this.engine = this.isEngineStopped ();
         }
         alert(this.stopTimer ());
+        alert(this.engine);
     }
 }
 
@@ -96,3 +97,35 @@ car.setFuel(50);
 
 car.go();
 car.stop();
+
+
+/*
+class machineCharacteristic {
+constructor (engine) {
+this.engine = engine;
+}
+
+setTool (tool) {
+this.tool = tool;
+}
+
+setDetail (detail) {
+this.tool = detail;
+}
+
+getCondition {
+return this.tool;
+}
+
+getCondition {
+return this.tool;
+}
+
+}
+
+const machine = new machineCharacteristic(true);
+
+machine.setTool(true);
+machine.setDetail(true);
+
+ */
