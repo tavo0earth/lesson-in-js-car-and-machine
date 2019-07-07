@@ -34,7 +34,7 @@ class CarCharacteristic {
     constructor(tank, fuelConsumption) {
         this.tank = tank;
         this.fuelConsumption = fuelConsumption;
-        this.fuelNow = 0;
+        this.fuel = 0;
     }
 
     isEngineStarted () {
@@ -48,41 +48,51 @@ class CarCharacteristic {
     }
 
 
-    setFuelNow(tank) {
-        if (tank > 0 && tank < this.tank && typeof tank === "number") {
-            this.fuelNow = tank;
+    setFuel(fuel) {
+        if (fuel > 0 && fuel < this.tank && typeof fuel === "number") {
+            this.fuel = fuel;
         } else {
-            this.fuelNow = 'error';
+            this.fuel = 'error';
         }
     };
 
-    getFuelNow() {
-        return this.fuelNow;
+    getFuel() {
+        return this.fuel;
     };
 
-    timeGo () {
-        this.time = this.getFuelNow() / this.fuelConsumption;
-        alert('Машина проедет: ' + this.time + 'сек.');
+    travelTime () {
+        this.time = this.getFuel() / this.fuelConsumption;
+        return this.time;
     }
 
     timer () {
-        setTimeout(this.timeGo (), this.time () * 1000);
+        let time = this.travelTime ();
+        setTimeout(function(){ alert('Машина проедет: ' + time + 'сек.'); }, time * 1000);
+    }
+
+    stopTimer () {
+        clearTimeout(this.timer ());
     }
 
     go() {
-        alert('Двигатель: ' + this.isEngineStarted());
-        alert('Бак заправлен на ' + this.getFuelNow() + 'л.');
+        if (this.isEngineStarted() === true) {
+            alert('Двигатель запущен');
+        }
+        alert('Бак заправлен на ' + this.getFuel() + 'л.');
         alert(this.timer ());
-        alert(this.isEngineStopped());
+        alert('Двигатель: ' + this.isEngineStarted());
     }
 
     stop() {
-        alert(this.isEngineStopped());
+        if (this.isEngineStopped() === false) {
+            alert('Двигатель: ' + this.isEngineStopped());
+        }
+        alert(this.stopTimer ());
     }
 }
 
 const car = new CarCharacteristic(200, 5);
-car.setFuelNow(50);
+car.setFuel(50);
 
 car.go();
 car.stop();
