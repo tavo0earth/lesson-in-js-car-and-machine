@@ -37,7 +37,7 @@ class Engine {
 }
 
 class CarCharacteristic extends Engine {
-    constructor(engine, tank, fuelConsumption) {
+    constructor(tank, fuelConsumption) {
         super(false);
         this.tank = tank;
         this.fuelConsumption = fuelConsumption;
@@ -102,40 +102,66 @@ class CarCharacteristic extends Engine {
     }
 }
 
-const car = new CarCharacteristic(false, 200, 5);
+const car = new CarCharacteristic(200, 5);
 car.setFuel(50);
 
 car.go();
 car.stop();
 
 
-/*
-class machineCharacteristic {
-constructor (engine) {
-this.engine = engine;
+class machineCharacteristic extends Engine {
+    constructor() {
+        super(false);
+    }
+
+    setTool(tool) {
+        this.tool = tool;
+    }
+
+    setDetail(detail) {
+        this.detail = detail;
+    }
+
+    getTool() {
+        return this.tool;
+    }
+
+    getDetail() {
+        return this.detail;
+    }
+
+    startEngine() {
+        this.engine = true;
+        return this.engine
+    }
+
+    stopEngine() {
+        this.engine = false;
+        return this.engine
+    }
+
+    go() {
+        if (this.getTool() && this.getDetail()) {
+            this.engine = this.startEngine();
+            alert('Двигатель: ' + this.engine);
+        } else {
+            alert("Комплектующей нет");
+        }
+    }
+
+    stop() {
+        if (this.engine) {
+            this.stopEngine();
+            alert('Двигатель: ' + this.engine);
+        }
+    }
 }
 
-setTool (tool) {
-this.tool = tool;
-}
-
-setDetail (detail) {
-this.tool = detail;
-}
-
-getConditionTool {
-return this.tool;
-}
-
-getConditionDetail {
-return this.tool;
-}
-
-}
-
-const machine = new machineCharacteristic(true);
+const machine = new machineCharacteristic();
 
 machine.setTool(true);
 machine.setDetail(true);
 
- */
+
+machine.go();
+machine.stop();
