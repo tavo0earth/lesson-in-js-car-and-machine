@@ -32,20 +32,16 @@
 
 class Engine {
     constructor(engine) {
-        this.engine = false;
-    }
-    engineCondition() {
-        return this.engine;
+        this.engine = engine;
     }
 }
 
 class CarCharacteristic extends Engine {
     constructor(engine, tank, fuelConsumption) {
-        super(engine);
+        super(false);
         this.tank = tank;
         this.fuelConsumption = fuelConsumption;
         this.fuel = 0;
-        alert('111' + this.engine)
     }
 
     isEngineStopped () {
