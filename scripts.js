@@ -34,7 +34,17 @@ class Engine {
     constructor(engine) {
         this.engine = engine;
     }
+
+    startEngine() {
+        this.engine = true;
+    }
+
+    stopEngine() {
+        this.engine = false;
+    }
 }
+
+
 
 class CarCharacteristic extends Engine {
     constructor(tank, fuelConsumption) {
@@ -42,21 +52,6 @@ class CarCharacteristic extends Engine {
         this.tank = tank;
         this.fuelConsumption = fuelConsumption;
         this.fuel = 0;
-    }
-
-    isEngineStopped () {
-        this.engine = false;
-        return this.engine
-    }
-
-    startEngine() {
-        this.engine = true;
-        return this.engine
-    }
-
-    stopEngine() {
-        this.engine = false;
-        return this.engine
     }
 
     setFuel(fuel) {
@@ -71,21 +66,27 @@ class CarCharacteristic extends Engine {
         return this.fuel;
     };
 
-    travelTime () {
+    travelTime() {
         return this.getFuel() / this.fuelConsumption;
     }
 
-    timer () {
-        const time = this.travelTime ();
-        this.timerId = setTimeout(function(){ alert('Машина проедет: ' + time + 'сек.'); }, time * 1000);
+    timeoutCallback() {
+        this.stopEngine();
+        const time = this.travelTime();
+        alert('Машина проедет: ' + time + 'сек.');
     }
 
-    stopTimer () {
+    timer() {
+        const time = this.travelTime();
+        this.timerId = setTimeout(this.timeoutCallback, time * 1000);
+    }
+
+    stopTimer() {
         clearTimeout(this.timerId);
     }
 
     go() {
-        this.engine = this.startEngine();
+        this.startEngine();
         this.timer();
         this.stopEngine();
         alert('Двигатель: ' + this.engine);
@@ -93,20 +94,21 @@ class CarCharacteristic extends Engine {
 
     stop() {
         if (this.engine) {
-            this.engine = this.stopEngine();
+            this.stopEngine();
         } else {
-            alert('Двигатель итак: ' + this.isEngineStopped());
+            alert('Двигатель итак остановлен');
         }
         this.stopTimer();
-        alert('Двигатель: ' + this.engine);
+        alert('Двигатель ' + this.engine);
     }
 }
 
 const car = new CarCharacteristic(200, 5);
-car.setFuel(50);
+const {setFuel, go, stop} = car;
+setFuel(50);
+go();
+stop();
 
-car.go();
-car.stop();
 
 
 class machineCharacteristic extends Engine {
@@ -130,19 +132,9 @@ class machineCharacteristic extends Engine {
         return this.detail;
     }
 
-    startEngine() {
-        this.engine = true;
-        return this.engine
-    }
-
-    stopEngine() {
-        this.engine = false;
-        return this.engine
-    }
-
     go() {
         if (this.getTool() && this.getDetail()) {
-            this.engine = this.startEngine();
+            this.startEngine();
             alert('Двигатель: ' + this.engine);
         } else {
             alert("Комплектующей нет");
@@ -152,16 +144,14 @@ class machineCharacteristic extends Engine {
     stop() {
         if (this.engine) {
             this.stopEngine();
-            alert('Двигатель: ' + this.engine);
+            alert('Двигатель остановлен');
         }
     }
 }
 
 const machine = new machineCharacteristic();
-
-machine.setTool(true);
-machine.setDetail(true);
-
-
-machine.go();
-machine.stop();
+const {setDetail, setTool, go: goMachine, stop: stopMachine} = machine;
+setDetail(true);
+setTool(true);
+goMachine();
+stopMachine();
