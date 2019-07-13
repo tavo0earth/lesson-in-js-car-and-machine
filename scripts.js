@@ -35,11 +35,11 @@ class Engine {
         this.engine = engine;
     }
 
-    startEngine() {
+    startEngine = () => {
         this.engine = true;
     }
 
-    stopEngine() {
+    stopEngine = () => {
         this.engine = false;
     }
 }
@@ -54,7 +54,7 @@ class CarCharacteristic extends Engine {
         this.fuel = 0;
     }
 
-    setFuel(fuel) {
+    setFuel = (fuel) => {
         if (fuel > 0 && fuel < this.tank && typeof fuel === "number") {
             this.fuel = fuel;
         } else {
@@ -62,37 +62,37 @@ class CarCharacteristic extends Engine {
         }
     };
 
-    getFuel() {
+    getFuel = () => {
         return this.fuel;
     };
 
-    travelTime() {
+    travelTime = () => {
         return this.getFuel() / this.fuelConsumption;
-    }
+    };
 
-    timeoutCallback() {
+    timeoutCallback = () => {
         this.stopEngine();
         const time = this.travelTime();
         alert('Машина проедет: ' + time + 'сек.');
-    }
+    };
 
-    timer() {
+    timer = () => {
         const time = this.travelTime();
         this.timerId = setTimeout(this.timeoutCallback, time * 1000);
-    }
+    };
 
-    stopTimer() {
+    stopTimer = () => {
         clearTimeout(this.timerId);
-    }
+    };
 
-    go() {
+    go = () => {
         this.startEngine();
         this.timer();
         this.stopEngine();
         alert('Двигатель: ' + this.engine);
-    }
+    };
 
-    stop() {
+    stop = () => {
         if (this.engine) {
             this.stopEngine();
         } else {
@@ -100,7 +100,7 @@ class CarCharacteristic extends Engine {
         }
         this.stopTimer();
         alert('Двигатель ' + this.engine);
-    }
+    };
 }
 
 const car = new CarCharacteristic(200, 5);
@@ -114,39 +114,39 @@ stop();
 class machineCharacteristic extends Engine {
     constructor() {
         super(false);
-    }
+    };
 
-    setTool(tool) {
+    setTool = (tool) => {
         this.tool = tool;
-    }
+    };
 
-    setDetail(detail) {
+    setDetail = (detail) => {
         this.detail = detail;
-    }
+    };
 
-    getTool() {
+    getTool = () => {
         return this.tool;
-    }
+    };
 
-    getDetail() {
+    getDetail = () => {
         return this.detail;
-    }
+    };
 
-    go() {
+    go = () => {
         if (this.getTool() && this.getDetail()) {
             this.startEngine();
             alert('Двигатель: ' + this.engine);
         } else {
             alert("Комплектующей нет");
         }
-    }
+    };
 
-    stop() {
+    stop = () => {
         if (this.engine) {
             this.stopEngine();
             alert('Двигатель остановлен');
         }
-    }
+    };
 }
 
 const machine = new machineCharacteristic();
